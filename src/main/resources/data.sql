@@ -8,5 +8,7 @@ INSERT INTO USER (id, username, password, first_name, last_name) VALUES
 INSERT INTO ROLE (id, role_name, description) VALUES (1, 'ROLE_ADMIN', 'Administrator');
 INSERT INTO ROLE (id, role_name, description) VALUES (2, 'ROLE_USER', 'General user role');
 
-INSERT INTO USER_ROLE (user_id, role_id) VALUES
- (1, 1) -- give admin ROLE_ADMIN
+INSERT INTO USER_ROLE (user_id, role_id) VALUES (1, 1); -- give admin ROLE_ADMIN
+
+INSERT INTO CITY (id, name, country, description) VALUES (1, 'Amsterdam', 'Netherlands', 'Amsterdam is the capital and most populous city of the Netherlands');
+INSERT INTO CITY (id, name, country, description) VALUES (2, 'Rotterdam', 'Netherlands', 'Rotterdam is a city and municipality in the Netherlands. It is in the province of South Holland');
