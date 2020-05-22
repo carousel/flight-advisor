@@ -76,7 +76,7 @@ public class UserService {
         LOGGER.info("New user attempting to sign in");
         Optional<User> user = Optional.empty();
         if (!userRepository.findByUsername(username).isPresent()) {
-            Optional<Role> role = roleRepository.findByRoleName("ROLE_CSR");
+            Optional<Role> role = roleRepository.findByRoleName("ROLE_USER");
             user = Optional.of(userRepository.save(new User(username,
                             passwordEncoder.encode(password),
                             role.get(),

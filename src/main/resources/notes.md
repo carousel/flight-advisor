@@ -67,16 +67,16 @@
 ## Example AIRPORT data
     Airport ID
         1 
-            (Identifier for the airport)
+            (Identifier for the airportBean)
     Name
         "Goroka Airport" 
-            (Name of airport)
+            (Name of airportBean)
     City
         "Goroka" 
-            (Main city served by airport)
+            (Main city served by airportBean)
     Country
         "Papua New Guinea" 
-            (Country or territory where airport is located)
+            (Country or territory where airportBean is located)
     IATA
         "GKA"
             (3-letter IATA code. Null if not assigned/unknown)
@@ -102,8 +102,8 @@
         "Pacific/Port_Moresby"
             (Timezone in "tz" (Olson) format, eg. "America/Los_Angeles")
     Type
-        "airport"
-            (Type of the airport)
+        "airportBean"
+            (Type of the airportBean)
     Source
         "OurAirports"
             (Source of this data)
@@ -114,18 +114,18 @@
     Airline ID
         410 
             (Identifier for airline)
-    Source airport
+    Source airportBean
         AER 
-            (3-letter (IATA) or 4-letter (ICAO) code of the source airport)
-    Source airport ID
+            (3-letter (IATA) or 4-letter (ICAO) code of the source airportBean)
+    Source airportBean ID
         2965 
-            (Identifier for source airport)
-    Destination airport
+            (Identifier for source airportBean)
+    Destination airportBean
         KZN 
-            (3-letter (IATA) or 4-letter (ICAO) code of the destination airport)
-    Destination airport ID
+            (3-letter (IATA) or 4-letter (ICAO) code of the destination airportBean)
+    Destination airportBean ID
         2990 
-            (Unique OpenFlights identifier for destination airport)
+            (Unique OpenFlights identifier for destination airportBean)
     Codeshare 
         ''  
             ("Y" if this flight is a codeshare, empty otherwise)

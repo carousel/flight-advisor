@@ -6,7 +6,6 @@ import javax.persistence.*;
 
 /**
  * Entity of a Security Role
- * Created by Mary Ellen BOwman
  */
 @Entity
 @Table(name="ROLE")

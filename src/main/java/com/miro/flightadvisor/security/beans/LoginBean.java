@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 /**
  * Created By Mary Ellen Bowman
  */
-public class Login {
+public class LoginBean {
     @NotNull
     private String username;
 
@@ -19,7 +19,7 @@ public class Login {
     /**
      * Default constructor
      */
-    protected Login() {
+    protected LoginBean() {
     }
 
     /**
@@ -27,7 +27,7 @@ public class Login {
      * @param username
      * @param password
      */
-    public Login(String username, String password) {
+    public LoginBean(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -36,7 +36,7 @@ public class Login {
      * @param username
      * @param password
      */
-    public Login(String username, String password, String firstName, String lastName) {
+    public LoginBean(String username, String password, String firstName, String lastName) {
         this(username, password);
         this.firstName = firstName;
         this.lastName = lastName;

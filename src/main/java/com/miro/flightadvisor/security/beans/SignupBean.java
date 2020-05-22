@@ -5,7 +5,15 @@ import org.springframework.stereotype.Component;
 import javax.validation.constraints.NotBlank;
 
 @Component
-public class Signup {
+public class SignupBean {
+    @NotBlank(message = "Username is required")
+    private String username;
+    @NotBlank(message = "Password is required")
+    private String password;
+    private String firstName;
+    private String lastName;
+    private String role;
+
     public String getUsername() {
         return username;
     }
@@ -30,9 +38,19 @@ public class Signup {
         this.role = role;
     }
 
-    @NotBlank(message = "Username is required")
-    private String username;
-    @NotBlank(message = "Password is required")
-    private String password;
-    private String role;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }
