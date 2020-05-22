@@ -16,12 +16,16 @@ VALUES (2, 'ROLE_USER', 'General user role');
 DELETE FROM CITY;
 -- DELETE FROM AIRPORT;
 INSERT INTO CITY (id, name, country, description) VALUES (1, 'Goroka', 'Papua New Guinea', 'Goroka is the capital of the Eastern Highlands Province of Papua New Guinea');
-INSERT INTO COMMENT (id, body, city_id) VALUES (1, 'First comment', 1);
-INSERT INTO COMMENT (id, body, city_id) VALUES (2, 'Second comment', 1);
-INSERT INTO COMMENT (id, body, city_id) VALUES (3, 'Third comment', 1);
+INSERT INTO CITY (id, name, country, description) VALUES (2, 'Godthaab', 'Greenland', 'Godthaab became the seat of government for the Danish colony of South Greenland');
+
+INSERT INTO COMMENT (id, body, city_id) VALUES (1, 'Goroka comment', 1);
+INSERT INTO COMMENT (id, body, city_id) VALUES (2, 'Goroke comment', 1);
+INSERT INTO COMMENT (id, body, city_id) VALUES (3, 'Godthaab comment', 2);
+INSERT INTO COMMENT (id, body, city_id) VALUES (4, 'Godthaab comment', 2);
+INSERT INTO COMMENT (id, body, city_id) VALUES (5, 'Godthaab comment', 2);
+INSERT INTO COMMENT (id, body, city_id) VALUES (6, 'Godthaab comment', 2);
 
 
--- INSERT INTO CITY (id, name, country, description) VALUES (2, 'Godthaab', 'Greenland', 'Godthaab became the seat of government for the Danish colony of South Greenland');
 -- INSERT INTO CITY (id, name, country, description) VALUES (20, 'Vestmannaeyjar', 'Iceland', 'Vestmannaeyjar is a municipality and archipelago off the south coast of Iceland');
 -- INSERT INTO CITY (id, name, country, description) VALUES (12057, 'Shenyang', 'China', 'Shenyang formerly known as Fengtian (Chinese: 奉天) or by its Manchu name Mukden, is a major sub-provincial city and the provincial capital of Liaoning');
 --

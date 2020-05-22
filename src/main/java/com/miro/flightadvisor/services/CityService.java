@@ -1,6 +1,7 @@
 package com.miro.flightadvisor.services;
 
 import com.miro.flightadvisor.beans.CityBean;
+import com.miro.flightadvisor.beans.CityWithCommentsBean;
 import com.miro.flightadvisor.beans.CommentBean;
 import com.miro.flightadvisor.entities.City;
 import com.miro.flightadvisor.entities.Comment;
@@ -9,8 +10,12 @@ import com.miro.flightadvisor.repositories.CityRepository;
 import com.miro.flightadvisor.repositories.CommentRepository;
 import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
 import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.security.util.ArrayUtil;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +26,8 @@ public class CityService {
     private CityRepository cityRepository;
     private CommentRepository commentRepository;
 
-    public CityService(CityRepository cityRepository, CommentRepository commentRepository) {
+    @Autowired
+    public CityService(CityRepository cityRepository, CommentRepository commentRepository, EntityManager entityManager) {
         this.cityRepository = cityRepository;
         this.commentRepository = commentRepository;
     }
@@ -35,7 +41,45 @@ public class CityService {
     }
 
     public Optional<List<City>> allCities() {
+        List<City> l = new ArrayList<>();
         return Optional.of(this.cityRepository.findAll());
+    }
+
+    public Optional<City> city(Integer cityId) {
+        return Optional.of(this.cityRepository.findById(cityId).get());
+    }
+
+    public Optional<CityWithCommentsBean> cityWithLimitedComments(Integer cityId, Integer commentsLimit) {
+
+        CityWithCommentsBean cityWithCommentsBean = new CityWithCommentsBean();
+        City city = cityRepository.findById(cityId).get();
+        if (commentsLimit > city.getComments().size()) {
+            cityWithCommentsBean.comments = city.getComments().subList(0, city.getComments().size());
+        } else {
+            cityWithCommentsBean.comments = city.getComments().subList(0, commentsLimit);
+        }
+        cityWithCommentsBean.name = city.getName();
+        cityWithCommentsBean.country = city.getCountry();
+        cityWithCommentsBean.description = city.getDescription();
+
+        return Optional.of(cityWithCommentsBean);
+    }
+
+    public Optional<List<CityWithCommentsBean>> allCitiesWithLimitedComments(Integer commentsLimit) {
+        List<CityWithCommentsBean> citiesWithCommentsBeans = new ArrayList<>();
+        cityRepository.findAll().forEach(c -> {
+            CityWithCommentsBean cityWithCommentsBean = new CityWithCommentsBean();
+            if (commentsLimit > c.getComments().size()) {
+                cityWithCommentsBean.comments = c.getComments().subList(0, c.getComments().size());
+            } else {
+                cityWithCommentsBean.comments = c.getComments().subList(0, commentsLimit);
+            }
+            cityWithCommentsBean.name = c.getName();
+            cityWithCommentsBean.country = c.getCountry();
+            cityWithCommentsBean.description = c.getDescription();
+            citiesWithCommentsBeans.add(cityWithCommentsBean);
+        });
+        return Optional.of(citiesWithCommentsBeans);
     }
 
     public Optional<List<Comment>> allCommentsForCity() {
@@ -51,6 +95,7 @@ public class CityService {
         comment.setCity(city);
         commentRepository.save(comment);
     }
+
     public void deleteCommentForCity(String inputCityId, String inputCommentId) {
         Integer cityId = Integer.parseInt(inputCityId);
         Integer commentId = Integer.parseInt(inputCommentId);
@@ -58,6 +103,7 @@ public class CityService {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new FlightAdvisorRuntimeException("We can't find a comment"));
         commentRepository.delete(comment);
     }
+
     public void updateCommentForCity(String inputCityId, String inputCommentId, CommentBean commentBean) {
         Integer cityId = Integer.parseInt(inputCityId);
         Integer commentId = Integer.parseInt(inputCommentId);

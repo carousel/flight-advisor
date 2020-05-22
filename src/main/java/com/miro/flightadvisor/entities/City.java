@@ -31,7 +31,7 @@ public class City {
     private String description;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "city")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "city", fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
 
     @Override
