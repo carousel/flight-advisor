@@ -37,18 +37,26 @@ public class DataImportService {
 
     public void processFile(Path filePath) throws IOException {
         Files.lines(filePath, Charset.defaultCharset()).forEachOrdered(str -> {
+
             List<String> list = Arrays.asList(str.split("\\s*,\\s*"));
+//            List<String> list = Arrays.asList(str.split(","));
+
             if (list.size() > 1) {
                 list.replaceAll(s -> {
-                    return s.replace("\"\"", "bad")
-                            .replace("\\N", "bad")
-                            .replace("\"", "");
+                    return s.replace("\"\"", "empty")
+                            .replace("\\N", "empty")
+                            .replace("\"", "")
+                            .replace("\\","empty")
+                            .replace("^$","empty");
 
                 });
-                Optional<City> city = cityRepository.findByName(list.get(2));
-                if (city.isPresent()) {
-                    buildAirportObject(list);
-                }
+                list.set(6,"empty");
+//                Optional<City> city = cityRepository.findByName(list.get(2));
+//                if (city.isPresent()) {
+
+                System.out.println(list);
+//                    buildAirportObject(list);
+//                }
             }
         });
 
