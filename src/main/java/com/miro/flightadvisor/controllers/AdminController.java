@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,7 +50,6 @@ public class AdminController {
     }
 
     @PostMapping("/cities")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<CityBean> addCity(@RequestBody @Valid CityBean cityBean) {
         cityService.addCity(cityBean);
@@ -62,15 +62,25 @@ public class AdminController {
     }
 
     @PostMapping(value = "/admin/import")
-    public @ResponseBody
-    void handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
+    @Async("importExecutor")
+    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
         try (InputStream inputStream = file.getInputStream()) {
             if (FilenameUtils.getExtension(file.getOriginalFilename()).equals("txt")) {
                 Path filePath = Paths.get(Paths.get(this.rootPath) + "/" + file.getOriginalFilename());
                 Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-                this.dataImportService.processFile(filePath);
+                this.dataImportService.processFile(filePath, file.getOriginalFilename());
+                Files.delete(filePath);
+            } else {
+                return ResponseEntity.ok("File format not allowed");
             }
+        } catch (IOException e) {
+            throw new IOException(String.format("File %s can't be uploaded", file.getOriginalFilename()));
         }
+        if (file.getOriginalFilename().contains("airports")) {
+            return ResponseEntity.ok("Airports uploaded,parsed and saved");
+        }
+        return ResponseEntity.ok("Routes uploaded,parsed and saved");
+
     }
 
 }

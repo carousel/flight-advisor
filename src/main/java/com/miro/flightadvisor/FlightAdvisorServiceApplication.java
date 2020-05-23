@@ -13,17 +13,29 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 import java.security.Key;
 import java.util.List;
+import java.util.concurrent.Executor;
 
 @SpringBootApplication(exclude = {SecurityAutoConfiguration.class, ManagementWebSecurityAutoConfiguration.class})
 public class FlightAdvisorServiceApplication {
 
-    @Autowired
-    private static AirportRepository airportRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(FlightAdvisorServiceApplication.class, args);
+    }
+
+    @Bean(name = "importExecutor")
+    public Executor taskExecutor() {
+        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        executor.setCorePoolSize(2);
+        executor.setMaxPoolSize(2);
+        executor.setQueueCapacity(500);
+        executor.setThreadNamePrefix("Importing data-");
+        executor.initialize();
+        return executor;
     }
 }

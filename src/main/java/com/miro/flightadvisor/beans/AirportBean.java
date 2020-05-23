@@ -5,7 +5,7 @@ import com.miro.flightadvisor.entities.DaylightSavingsTime;
 import java.math.BigDecimal;
 
 public class AirportBean {
-    private final Integer airportId;
+    private final Integer providedAirportId;
     private final String name;
     private final String city;
     private final String country;
@@ -14,14 +14,14 @@ public class AirportBean {
     private final BigDecimal latitude;
     private final BigDecimal longitude;
     private final Integer altitude;
-    private final Integer timezone;
+    private final Double timezone;
     private final DaylightSavingsTime dst;
     private final String tz;
     private final String type;
     private final String source;
 
     private AirportBean(Builder builder) {
-        airportId = builder.airportId;
+        providedAirportId = builder.providedAirportId;
         name = builder.name;
         city = builder.city;
         country = builder.country;
@@ -53,7 +53,7 @@ public class AirportBean {
         return altitude;
     }
 
-    public Integer getTimezone() {
+    public Double getTimezone() {
         return timezone;
     }
 
@@ -61,8 +61,8 @@ public class AirportBean {
         return dst;
     }
 
-    public Integer getAirportId() {
-        return airportId;
+    public Integer getProvidedAirportId() {
+        return providedAirportId;
     }
 
     public String getName() {
@@ -98,7 +98,7 @@ public class AirportBean {
     }
 
     public static class Builder {
-        private Integer airportId;
+        private Integer providedAirportId;
         private String name;
         private String city;
         private String country;
@@ -106,7 +106,7 @@ public class AirportBean {
         private BigDecimal latitude;
         private BigDecimal longitude;
         private Integer altitude;
-        private Integer timezone;
+        private Double timezone;
         private DaylightSavingsTime dst;
 
         private String tz;
@@ -115,8 +115,8 @@ public class AirportBean {
         private String iata;
         private String icao;
 
-        public Builder setAirportId(String airportId) {
-            this.airportId = Integer.parseInt(airportId);
+        public Builder setProvidedAirportId(String providedAirportId) {
+            this.providedAirportId = Integer.parseInt(providedAirportId);
             return this;
         }
 
@@ -147,8 +147,8 @@ public class AirportBean {
 
 
         public Builder setLatitude(String latitude) {
-            if (latitude.equals("bad")) {
-                this.latitude = null;
+            if (latitude.equals("unknown")) {
+                this.latitude = new BigDecimal(0);
                 return this;
             } else {
                 this.latitude = new BigDecimal(latitude);
@@ -157,8 +157,8 @@ public class AirportBean {
         }
 
         public Builder setLongitude(String longitude) {
-            if (longitude.equals("bad")) {
-                this.longitude = null;
+            if (longitude.equals("unknown")) {
+                this.longitude = new BigDecimal(0);
                 return this;
             } else {
                 this.longitude = new BigDecimal(longitude);
@@ -167,8 +167,8 @@ public class AirportBean {
         }
 
         public Builder setAltitude(String altitude) {
-            if (altitude.equals("bad")) {
-                this.altitude = null;
+            if (altitude.equals("unknown")) {
+                this.altitude = 0;
                 return this;
             } else {
                 this.altitude = Integer.parseInt(altitude);
@@ -177,17 +177,17 @@ public class AirportBean {
         }
 
         public Builder setTimezone(String timezone) {
-            if (timezone.equals("bad")) {
-                this.timezone = 0;
+            if (timezone.equals("unknown")) {
+                this.timezone = 0.0;
                 return this;
             } else {
-                this.timezone = Integer.parseInt(timezone);
+                this.timezone = Double.parseDouble(timezone);
             }
             return this;
         }
 
         public Builder setDst(String dst) {
-            if (dst.equals("bad")) {
+            if (dst.equals("unknown")) {
                 this.dst = DaylightSavingsTime.N;
                 return this;
             } else {
@@ -198,7 +198,7 @@ public class AirportBean {
 
 
         public Builder setTz(String tz) {
-            if (tz.equals("bad")) {
+            if (tz.equals("unknwon")) {
                 this.tz = "Unknown";
                 return this;
             } else {

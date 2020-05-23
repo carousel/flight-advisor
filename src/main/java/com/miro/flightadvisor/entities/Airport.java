@@ -18,8 +18,8 @@ public class Airport {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "airport_id")
-    private Integer airportId;
+    @Column(name = "provided_airport_id")
+    private Integer providedAirportId;
     @Column(name = "name")
     private String name;
     @Column(name = "city")
@@ -37,27 +37,19 @@ public class Airport {
     @Column(name = "altitude")
     private long altitude;
     @Column(name = "timezone")
-    private Integer timezone;
-
-    public DaylightSavingsTime getDst() {
-        return dst;
-    }
-
-    public void setDst(DaylightSavingsTime dst) {
-        this.dst = dst;
-    }
+    private Double timezone;
 
     @Column(name = "dst")
     private DaylightSavingsTime dst;
+
     @Column(name = "tz")
     private String tz;
     @Column(name = "type")
     private String type;
     @Column(name = "source")
     private String source;
-
     public Airport(AirportBean airportBean) {
-        setAirportId(airportBean.getAirportId());
+        setProvidedAirportId(airportBean.getProvidedAirportId());
         setName(airportBean.getName());
         setCity(airportBean.getCity());
         setCountry(airportBean.getCountry());
@@ -75,5 +67,13 @@ public class Airport {
 
         setType(airportBean.getType());
         setSource(airportBean.getSource());
+    }
+
+    public DaylightSavingsTime getDst() {
+        return dst;
+    }
+
+    public void setDst(DaylightSavingsTime dst) {
+        this.dst = dst;
     }
 }

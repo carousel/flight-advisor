@@ -1,225 +1,148 @@
 package com.miro.flightadvisor.beans;
 
 import com.miro.flightadvisor.entities.DaylightSavingsTime;
+import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
-public class AirportBean {
-    private final Integer airportId;
-    private final String name;
-    private final String city;
-    private final String country;
-    private final String iata;
-    private final String icao;
-    private final BigDecimal latitude;
-    private final BigDecimal longitude;
-    private final Integer altitude;
-    private final Double timezone;
-    private final DaylightSavingsTime dst;
-    private final String tz;
-    private final String type;
-    private final String source;
+public class RouteBean {
 
-    private AirportBean(Builder builder) {
-        airportId = builder.airportId;
-        name = builder.name;
-        city = builder.city;
-        country = builder.country;
+    private String airline;
+    private Integer airlineId;
+    private String sourceAirport;
+    private Integer sourceAirportId;
+    private String destinationAirport;
+    private Integer destinationAirportId;
+    private String codeshare;
+    private Integer stops;
+    private String equipment;
+    private BigDecimal flightCost;
 
-        iata = builder.iata;
-        icao = builder.icao;
-
-        latitude = builder.latitude;
-        longitude = builder.longitude;
-        altitude = builder.altitude;
-
-        timezone = builder.timezone;
-        dst = builder.dst;
-        tz = builder.tz;
-
-        type = builder.type;
-        source = builder.source;
+    private RouteBean(Builder builder) {
+        airline = builder.airline;
+        airlineId = builder.airlineId;
+        sourceAirport = builder.sourceAirport;
+        sourceAirportId = builder.sourceAirportId;
+        destinationAirport = builder.destinationAirport;
+        destinationAirportId = builder.destinationAirportId;
+        codeshare = builder.codeshare;
+        stops = builder.stops;
+        equipment = builder.equipment;
+        flightCost = builder.flightCost;
     }
 
-    public BigDecimal getLatitude() {
-        return latitude;
+    public String getAirline() {
+        return airline;
     }
 
-    public BigDecimal getLongitude() {
-        return longitude;
+    public Integer getAirlineId() {
+        return airlineId;
     }
 
-    public Integer getAltitude() {
-        return altitude;
+    public String getSourceAirport() {
+        return sourceAirport;
     }
 
-    public Double getTimezone() {
-        return timezone;
+    public Integer getSourceAirportId() {
+        return sourceAirportId;
     }
 
-    public DaylightSavingsTime getDst() {
-        return dst;
+    public String getDestinationAirport() {
+        return destinationAirport;
     }
 
-    public Integer getAirportId() {
-        return airportId;
+    public Integer getDestinationAirportId() {
+        return destinationAirportId;
     }
 
-    public String getName() {
-        return name;
+    public String getCodeshare() {
+        return codeshare;
     }
 
-    public String getCity() {
-        return city;
+    public Integer getStops() {
+        return stops;
     }
 
-    public String getCountry() {
-        return country;
+    public String getEquipment() {
+        return equipment;
     }
 
-    public String getIata() {
-        return iata;
-    }
-
-    public String getIcao() {
-        return icao;
-    }
-
-    public String getTz() {
-        return tz;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getSource() {
-        return source;
+    public BigDecimal getFlightCost() {
+        return flightCost;
     }
 
     public static class Builder {
-        private Integer airportId;
-        private String name;
-        private String city;
-        private String country;
+        private String airline;
+        private Integer airlineId;
+        private String sourceAirport;
+        private Integer sourceAirportId;
+        private String destinationAirport;
+        private Integer destinationAirportId;
+        private String codeshare;
+        private Integer stops;
+        private String equipment;
+        private BigDecimal flightCost;
 
-        private BigDecimal latitude;
-        private BigDecimal longitude;
-        private Integer altitude;
-        private Double timezone;
-        private DaylightSavingsTime dst;
-
-        private String tz;
-        private String type;
-        private String source;
-        private String iata;
-        private String icao;
-
-        public Builder setAirportId(String airportId) {
-            this.airportId = Integer.parseInt(airportId);
+        public Builder setAirline(String airline) {
+            this.airline = airline;
             return this;
         }
 
-        public Builder setName(String name) {
-            this.name = name;
+        public Builder setAirlineId(String airlineId) {
+            this.airlineId = Integer.parseInt(airlineId);
             return this;
         }
 
-        public Builder setCity(String city) {
-            this.city = city;
+        public Builder setSourceAirport(String sourceAirport) {
+            this.sourceAirport = sourceAirport;
             return this;
         }
 
-        public Builder setCountry(String country) {
-            this.country = country;
+        public Builder setSourceAirportId(String sourceAirportId) {
+            this.sourceAirportId = Integer.parseInt(sourceAirportId);
             return this;
         }
 
-        public Builder setIata(String iata) {
-            this.iata = iata;
+        public Builder setDestinationAirport(String destinationAirport) {
+            this.destinationAirport = destinationAirport;
             return this;
         }
 
-        public Builder setIcao(String icao) {
-            this.icao = icao;
+        public Builder setDestinationAirportId(String destinationAirportId) {
+            this.destinationAirportId = Integer.parseInt(destinationAirportId);
             return this;
         }
 
-
-        public Builder setLatitude(String latitude) {
-            if (latitude.equals("unknown")) {
-                this.latitude = new BigDecimal(0);
-                return this;
+        public Builder setCodeshare(String codeshare) {
+            if (codeshare.equals("unknown")) {
+                this.codeshare = "";
             } else {
-                this.latitude = new BigDecimal(latitude);
+                this.codeshare = codeshare;
             }
             return this;
         }
 
-        public Builder setLongitude(String longitude) {
-            if (longitude.equals("unknown")) {
-                this.longitude = new BigDecimal(0);
-                return this;
-            } else {
-                this.longitude = new BigDecimal(longitude);
-            }
+        public Builder setStops(String stops) {
+            this.stops = Integer.parseInt(stops);
             return this;
         }
 
-        public Builder setAltitude(String altitude) {
-            if (altitude.equals("unknown")) {
-                this.altitude = 0;
-                return this;
-            } else {
-                this.altitude = Integer.parseInt(altitude);
-            }
+        public Builder setEquipment(String equipment) {
+            this.equipment = equipment;
             return this;
         }
 
-        public Builder setTimezone(String timezone) {
-            if (timezone.equals("unknown")) {
-                this.timezone = 0.0;
-                return this;
-            } else {
-                this.timezone = Double.parseDouble(timezone);
-            }
+        public Builder setFlightCost(String flightCost) {
+            this.flightCost = new BigDecimal(flightCost);
             return this;
         }
 
-        public Builder setDst(String dst) {
-            if (dst.equals("unknown")) {
-                this.dst = DaylightSavingsTime.N;
-                return this;
-            } else {
-                this.dst = DaylightSavingsTime.valueOf(dst);
-            }
-            return this;
-        }
-
-
-        public Builder setTz(String tz) {
-            if (tz.equals("unknwon")) {
-                this.tz = "Unknown";
-                return this;
-            } else {
-                this.tz = tz;
-            }
-            return this;
-        }
-
-
-        public Builder setType(String type) {
-            this.type = type;
-            return this;
-        }
-
-        public Builder setSource(String source) {
-            this.source = source;
-            return this;
-        }
-
-        public AirportBean build() {
-            return new AirportBean(this);
+        public RouteBean build() {
+            return new RouteBean(this);
         }
     }
 }

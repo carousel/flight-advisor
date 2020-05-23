@@ -4,15 +4,18 @@ import com.miro.flightadvisor.beans.CityWithCommentsBean;
 import com.miro.flightadvisor.beans.CommentBean;
 import com.miro.flightadvisor.entities.City;
 import com.miro.flightadvisor.entities.Comment;
+import com.miro.flightadvisor.entities.Route;
 import com.miro.flightadvisor.repositories.CityRepository;
 import com.miro.flightadvisor.repositories.CommentRepository;
 import com.miro.flightadvisor.services.CityService;
+import com.sun.istack.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,14 +25,11 @@ public class CityController {
     private CityService cityService;
 
 
+    @Autowired
     public CityController(CityService cityService) {
         this.cityService = cityService;
     }
 
-    @Autowired
-    CityRepository cityRepository;
-    @Autowired
-    CommentRepository commentRepository;
 
     @GetMapping("/cities")
     public Optional<?> cities(@RequestParam(value = "cq") Optional<Integer> cq) {
@@ -40,15 +40,15 @@ public class CityController {
         }
     }
 
-    @GetMapping("/city/{cityId}")
+    @GetMapping("/cities/{cityName}")
     public Optional<?> getCity(
-            @PathVariable(value = "cityId") Integer cityId,
+            @NotNull @PathVariable(value = "cityName") String cityName,
             @RequestParam(value = "cq") Optional<Integer> cq
     ) {
         if (cq.isPresent()) {
-            return cityService.cityWithLimitedComments(cityId, cq.get());
+            return cityService.cityWithLimitedComments(cityName, cq.get());
         } else {
-            return cityService.city(cityId);
+            return cityService.city(cityName);
         }
     }
 
@@ -58,12 +58,17 @@ public class CityController {
         return cityService.allCommentsForCity();
     }
 
+    @GetMapping("/routes")
+    public Optional<List<Route>> getRoutes() {
+        return cityService.allRoutes();
+    }
+
     @PostMapping("/cities/{cityId}/comments")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<CommentBean> addCommentForCity(@PathVariable("cityId") String cityId, @RequestBody @Valid CommentBean commentBean) {
+    public ResponseEntity<String> addCommentForCity(@PathVariable("cityId") String cityId, @RequestBody @Valid CommentBean commentBean) {
         commentBean.setCityId(cityId);
         cityService.addCommentForCity(commentBean);
-        return ResponseEntity.ok(commentBean);
+        return ResponseEntity.ok("Comment created");
     }
 
     @DeleteMapping("/cities/{cityId}/comments/{commentId}")

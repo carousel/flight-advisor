@@ -5,9 +5,11 @@ import com.miro.flightadvisor.beans.CityWithCommentsBean;
 import com.miro.flightadvisor.beans.CommentBean;
 import com.miro.flightadvisor.entities.City;
 import com.miro.flightadvisor.entities.Comment;
+import com.miro.flightadvisor.entities.Route;
 import com.miro.flightadvisor.exception.FlightAdvisorRuntimeException;
 import com.miro.flightadvisor.repositories.CityRepository;
 import com.miro.flightadvisor.repositories.CommentRepository;
+import com.miro.flightadvisor.repositories.RouteRepository;
 import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
 import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import sun.security.util.ArrayUtil;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -25,11 +28,17 @@ import java.util.Optional;
 public class CityService {
     private CityRepository cityRepository;
     private CommentRepository commentRepository;
+    private RouteRepository routeRepository;
 
     @Autowired
-    public CityService(CityRepository cityRepository, CommentRepository commentRepository, EntityManager entityManager) {
+    public CityService(CityRepository cityRepository, CommentRepository commentRepository, RouteRepository routeRepository) {
         this.cityRepository = cityRepository;
         this.commentRepository = commentRepository;
+        this.routeRepository = routeRepository;
+    }
+
+    public Optional<List<Route>> allRoutes() {
+        return Optional.of(routeRepository.findAll());
     }
 
     public void addCity(CityBean cityBean) {
@@ -45,14 +54,14 @@ public class CityService {
         return Optional.of(this.cityRepository.findAll());
     }
 
-    public Optional<City> city(Integer cityId) {
-        return Optional.of(this.cityRepository.findById(cityId).get());
+    public Optional<City> city(String cityName) {
+        return Optional.of(this.cityRepository.findByName(cityName).get());
     }
 
-    public Optional<CityWithCommentsBean> cityWithLimitedComments(Integer cityId, Integer commentsLimit) {
+    public Optional<CityWithCommentsBean> cityWithLimitedComments(String cityName, Integer commentsLimit) {
 
         CityWithCommentsBean cityWithCommentsBean = new CityWithCommentsBean();
-        City city = cityRepository.findById(cityId).get();
+        City city = cityRepository.findByName(cityName).get();
         if (commentsLimit > city.getComments().size()) {
             cityWithCommentsBean.comments = city.getComments().subList(0, city.getComments().size());
         } else {
@@ -93,6 +102,8 @@ public class CityService {
         City city = cityRepository.findById(cityId).orElseThrow(() -> new FlightAdvisorRuntimeException("We can't find a city"));
         comment.setBody(commentBean.getBody());
         comment.setCity(city);
+        comment.setCreatedAt(LocalDate.now());
+        comment.setUpdatedAt(LocalDate.now());
         commentRepository.save(comment);
     }
 
@@ -110,6 +121,7 @@ public class CityService {
         City city = cityRepository.findById(cityId).orElseThrow(() -> new FlightAdvisorRuntimeException("We can't find a city"));
         Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new FlightAdvisorRuntimeException("We can't find a comment"));
         comment.setBody(commentBean.getBody());
+        comment.setUpdatedAt(LocalDate.now());
         commentRepository.save(comment);
     }
 
