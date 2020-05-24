@@ -37,16 +37,17 @@ public class CityService {
         this.routeRepository = routeRepository;
     }
 
-    public Optional<List<Route>> allRoutes() {
-        return Optional.of(routeRepository.findAll());
-    }
-
     public void addCity(CityBean cityBean) {
-        City city = new City();
-        city.setCountry(cityBean.getCountry());
-        city.setDescription(cityBean.getDescription());
-        city.setName(cityBean.getName());
-        this.cityRepository.save(city);
+        City newCity = new City();
+        newCity.setCountry(cityBean.getCountry());
+        newCity.setDescription(cityBean.getDescription());
+        newCity.setName(cityBean.getName());
+        Optional<City> city = cityRepository.findByName(newCity.getName());
+        if (city.isPresent()) {
+            return;
+        } else {
+            this.cityRepository.save(newCity);
+        }
     }
 
     public Optional<List<City>> allCities() {

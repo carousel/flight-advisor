@@ -58,11 +58,6 @@ public class CityController {
         return cityService.allCommentsForCity();
     }
 
-    @GetMapping("/routes")
-    public Optional<List<Route>> getRoutes() {
-        return cityService.allRoutes();
-    }
-
     @PostMapping("/cities/{cityId}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<String> addCommentForCity(@PathVariable("cityId") String cityId, @RequestBody @Valid CommentBean commentBean) {

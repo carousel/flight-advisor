@@ -42,7 +42,7 @@ public class Route {
     @Column(name = "stops", length = 1)
     private Integer stops;
 
-    @Column(name = "equipment", length = 3)
+    @Column(name = "equipment", length = 24)
     private String equipment;
 
     @Column(name = "flight_cost")
