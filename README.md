@@ -35,6 +35,11 @@ Othere than that, code is well documented and pretty self explanatory.
 
 Logging storage is present (logs directory)
 
+Following directories are not .gitignored due to nature of applications(demo):
+
+    logs
+    docs
+
 Salt is added to user credentials, but according to this SO thread, it is auto created by Spring:
 https://stackoverflow.com/questions/6832445/how-can-bcrypt-have-built-in-salts
     This can be be verified by looking at Spring BCrypt source code:
@@ -62,4 +67,5 @@ https://stackoverflow.com/questions/6832445/how-can-bcrypt-have-built-in-salts
         }
     }
 ```
+
 
