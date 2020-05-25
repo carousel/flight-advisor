@@ -35,7 +35,7 @@ Othere than that, code is well documented and pretty self explanatory.
 
 Logging storage is present (logs directory)
 
-Following directories are not .gitignored due to nature of applications(demo):
+Following directories are not ".gitignored" due to nature of application(demo):
 
     logs
     docs
