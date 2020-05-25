@@ -1,14 +1,11 @@
 package com.miro.flightadvisor.beans;
 
-import com.miro.flightadvisor.entities.DaylightSavingsTime;
-import org.springframework.boot.autoconfigure.info.ProjectInfoProperties;
-
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 
+/**
+ * Main bean (DTO) for transferring data when importing routes
+ * contains builder for avoiding telescoping constructor anti-pattern
+ */
 public class RouteBean {
 
     private String airline;

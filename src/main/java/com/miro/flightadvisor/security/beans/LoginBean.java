@@ -2,9 +2,6 @@ package com.miro.flightadvisor.security.beans;
 
 import javax.validation.constraints.NotNull;
 
-/**
- * Created By Mary Ellen Bowman
- */
 public class LoginBean {
     @NotNull
     private String username;

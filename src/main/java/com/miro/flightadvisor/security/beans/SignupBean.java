@@ -5,7 +5,6 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import javax.validation.constraints.NotBlank;
-import java.security.SecureRandom;
 
 @Component
 @Getter
@@ -19,6 +18,4 @@ public class SignupBean {
     private String lastName;
     private String role;
     private String salt;
-
-
 }

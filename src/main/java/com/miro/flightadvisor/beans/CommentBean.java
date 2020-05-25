@@ -3,12 +3,14 @@ package com.miro.flightadvisor.beans;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
 @Setter
+/**
+ * Main bean (DTO) for transferring data when making CRUD operations of comments
+ */
 public class CommentBean {
     @NotNull
     private String body;

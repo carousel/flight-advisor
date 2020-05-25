@@ -21,13 +21,13 @@ public class City {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "name", length = 128)
     private String name;
 
-    @Column(name = "country")
+    @Column(name = "country", length = 128)
     private String country;
 
-    @Column(name = "description")
+    @Column(name = "description", length = 512)
     private String description;
 
     @JsonManagedReference

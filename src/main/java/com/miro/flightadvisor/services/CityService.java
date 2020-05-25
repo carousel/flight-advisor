@@ -5,26 +5,23 @@ import com.miro.flightadvisor.beans.CityWithCommentsBean;
 import com.miro.flightadvisor.beans.CommentBean;
 import com.miro.flightadvisor.entities.City;
 import com.miro.flightadvisor.entities.Comment;
-import com.miro.flightadvisor.entities.Route;
 import com.miro.flightadvisor.exception.FlightAdvisorRuntimeException;
 import com.miro.flightadvisor.repositories.CityRepository;
 import com.miro.flightadvisor.repositories.CommentRepository;
 import com.miro.flightadvisor.repositories.RouteRepository;
-import jdk.nashorn.internal.runtime.regexp.joni.constants.OPCode;
-import org.apache.commons.lang3.text.translate.NumericEntityUnescaper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.security.util.ArrayUtil;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+/**
+ * Main service for operations on city data
+ * method names for internal operations are self descriptive
+ */
 public class CityService {
     private CityRepository cityRepository;
     private CommentRepository commentRepository;

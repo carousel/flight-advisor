@@ -4,6 +4,10 @@ import com.miro.flightadvisor.entities.DaylightSavingsTime;
 
 import java.math.BigDecimal;
 
+/**
+ * Main bean (DTO) for transferring data when importing airports
+ * contains builder for avoiding telescoping constructor anti-pattern
+ */
 public class AirportBean {
     private final Integer providedAirportId;
     private final String name;

@@ -4,19 +4,16 @@ import com.miro.flightadvisor.beans.AirportBean;
 import com.miro.flightadvisor.beans.RouteBean;
 import com.miro.flightadvisor.entities.Airport;
 import com.miro.flightadvisor.entities.City;
-import com.miro.flightadvisor.entities.DaylightSavingsTime;
-import com.miro.flightadvisor.entities.Route;
 import com.miro.flightadvisor.repositories.AirportRepository;
 import com.miro.flightadvisor.repositories.CityRepository;
 import com.miro.flightadvisor.repositories.RouteRepository;
-import org.apache.logging.log4j.util.Chars;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
-import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -26,6 +23,9 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 
+/**
+ * Main service for importing airport and route data
+ */
 @Service
 public class DataImportService {
 
@@ -34,19 +34,30 @@ public class DataImportService {
     private final CityRepository cityRepository;
     private final AirportService airportService;
     private final AirportRepository airportRepository;
-    private final RouteRepository routeRepository;
     private final RouteService routeService;
 
     @Autowired
-    public DataImportService(CityRepository cityRepository, AirportService airportService, RouteRepository routeRepository, AirportRepository airportRepository, RouteService routeService) {
+    public DataImportService(CityRepository cityRepository, AirportService airportService, AirportRepository airportRepository, RouteService routeService) {
         this.cityRepository = cityRepository;
         this.airportService = airportService;
         this.airportRepository = airportRepository;
-        this.routeRepository = routeRepository;
         this.routeService = routeService;
 
     }
 
+
+    /**
+     * main dispatcher for imported files (airport or route)
+     * file is firstly uploaded, then parsed and data are extracted and used to build objects
+     * after file is processed, file is deleted from file system
+     * alternative is to process file while it is uploaded (without saving)
+     * for better performance and sile possible huge file size, async executor is used
+     *
+     * @param filePath
+     * @param filename
+     * @throws IOException
+     */
+    @Async("importExecutor")
     public void processFile(Path filePath, String filename) throws IOException {
         if (filename.contains("airports")) {
             parseAirportFile(filePath);
@@ -54,9 +65,16 @@ public class DataImportService {
         if (filename.contains("routes")) {
             parseRouteFile(filePath);
         }
-
     }
 
+
+    /**
+     * pretty complex method for parsing airports file
+     * contains many regex filters for cleaning and formatting broken data
+     *
+     * @param filePath
+     * @throws IOException
+     */
     private void parseAirportFile(Path filePath) throws IOException {
         try (
                 Stream<String> airportStream = Files.lines(filePath, Charset.defaultCharset());
@@ -71,8 +89,6 @@ public class DataImportService {
                                 .replace("\\", "unknown")
                                 .replace("^$", "unknown")
                                 .replace("ENEV", "unknown");
-
-
                     });
                     if (airport.size() == 14) {
                         Optional<City> city = cityRepository.findByName(airport.get(2));
@@ -92,6 +108,14 @@ public class DataImportService {
 
     }
 
+    /**
+     * pretty complex method for parsing routes file
+     * as suggested by SonarLint, this method should be refactored to decrease complexity
+     * contains many regex filters for cleaning and formatting broken data
+     *
+     * @param filePath
+     * @throws IOException
+     */
     private void parseRouteFile(Path filePath) throws IOException {
         try (
                 Stream<String> stream = Files.lines(filePath, Charset.defaultCharset());
@@ -144,9 +168,17 @@ public class DataImportService {
                 }
             });
         }
-
     }
 
+    /**
+     * when airport file is processed and parsed, extracted data is used to build objects
+     * this is done with the help of builders (builder pattern)
+     * after that, objects are send to be saved in DB (through repository)
+     *
+     * @param items
+     * @param filePath
+     * @throws IOException
+     */
     private void buildAirportObject(List<String> items, Path filePath) throws IOException {
         String providedAirportId = items.get(0);
         String name = items.get(1);
@@ -162,8 +194,6 @@ public class DataImportService {
         String tz = items.get(11);
         String type = items.get(12);
         String source = items.get(13);
-
-
         AirportBean airportBean = new AirportBean.Builder()
                 .setProvidedAirportId(providedAirportId)
                 .setName(name)
@@ -185,6 +215,15 @@ public class DataImportService {
 
     }
 
+    /**
+     * when route file is processed and parsed, extracted data is used to build objects
+     * this is done with the help of builders (builder pattern)
+     * after that, objects are send to be saved in DB (through repository)
+     *
+     * @param items
+     * @param filePath
+     * @throws IOException
+     */
     private void buildRouteObject(List<String> items, Path filePath) throws IOException {
         String airline = items.get(0);
         String airlineId = items.get(1);

@@ -7,6 +7,9 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
+/**
+ * Main bean (DTO) for transferring data when creating city
+ */
 public class CityBean {
     @NotNull
     private String name;

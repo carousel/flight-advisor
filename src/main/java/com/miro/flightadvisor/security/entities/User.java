@@ -56,6 +56,13 @@ public class User {
         this.salt = generateSalt();
     }
 
+
+    /**
+     * Added salt for convenience
+     * But based on this Stack Overflow thread https://stackoverflow.com/questions/6832445/how-can-bcrypt-have-built-in-salts Spring is internally auto generating salt
+     *
+     * @return
+     */
     public byte[] generateSalt() {
         SecureRandom secureRandom = new SecureRandom();
         byte[] salt = new byte[64];

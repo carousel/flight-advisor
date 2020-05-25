@@ -15,6 +15,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CityBeanControllerTest {
+
+    private static final String BASE_URL = "http://localhost/8080";
+
     @MockBean
     private CityService cityService;
 
@@ -35,6 +38,16 @@ class CityBeanControllerTest {
 
     @Test
     void resultContainsCity() {
-        assertThat(this.testRestTemplate.getForObject("http://localhost:8080/open-cities", String.class)).contains("Rotterdam");
+        assertThat(this.testRestTemplate.getForObject(BASE_URL + "/cities", String.class)).contains("Amsterdam");
+    }
+
+    @Test
+    void cityCanBeFetchedByName() {
+        assertThat(this.testRestTemplate.getForObject(BASE_URL + "/cities/Amsterdam", String.class)).contains("Amsterdam");
+    }
+
+    @Test
+    void commentForCityCanBeFetchedAndLimited() {
+        assertThat(this.testRestTemplate.getForObject(BASE_URL + "/cities/Amsterdam?cq=1", String.class)).contains("Amsterdam comment");
     }
 }

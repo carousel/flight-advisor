@@ -10,6 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+/**
+ * Main service for operations on airport data
+ */
 public class AirportService {
 
     AirportRepository airportRepository;
