@@ -113,14 +113,24 @@ public class CityService {
         commentRepository.delete(comment);
     }
 
+    /**
+     * Better way to update comment - with mapping
+     *
+     * @param inputCityId
+     * @param inputCommentId
+     * @param commentBean
+     */
     public void updateCommentForCity(String inputCityId, String inputCommentId, CommentBean commentBean) {
+
         Integer cityId = Integer.parseInt(inputCityId);
+        City city = cityRepository.findById(cityId).get();
         Integer commentId = Integer.parseInt(inputCommentId);
-        City city = cityRepository.findById(cityId).orElseThrow(() -> new FlightAdvisorRuntimeException("We can't find a city"));
-        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new FlightAdvisorRuntimeException("We can't find a comment"));
-        comment.setBody(commentBean.getBody());
-        comment.setUpdatedAt(LocalDate.now());
-        commentRepository.save(comment);
+        commentRepository.findOneByCityId(city, commentId)
+                .map(comment -> {
+                    comment.setBody(commentBean.getBody());
+                    comment.setUpdatedAt(LocalDate.now());
+                    return commentRepository.save(comment);
+                }).orElseThrow(() -> new FlightAdvisorRuntimeException("We can't find a comment"));
     }
 
 }
