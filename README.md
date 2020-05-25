@@ -3,15 +3,18 @@ Author:
 miroslav.trninic@gmail.com
 
 ## Prerequisites
-    Java version >= 1.8.0_251
+    Java version >= 1.8.0_252
     Apache Maven version >= 3.6.3 
 
 ## How to run application
+
 Clone repository from github: 
 git@github.com:carousel/flight-advisor.git
-Or
+
+Or from:
 https://github.com/carousel/flight-advisor
-From command line run:
+
+Run from command line run:
 
     mvn spring-boot:run
     
