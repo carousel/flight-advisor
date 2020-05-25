@@ -30,9 +30,9 @@ import java.util.Optional;
 @RestController
 public class CityController {
 
-    private CityService cityService;
+    private final CityService cityService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CityController.class);
 
 
     @Autowired

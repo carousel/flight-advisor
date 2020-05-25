@@ -27,9 +27,9 @@ import java.util.Optional;
 @RestController
 public class FlightRouteController {
 
-    private RouteService routeService;
+    private final RouteService routeService;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlightRouteController.class);
 
 
     @Autowired

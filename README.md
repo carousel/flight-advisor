@@ -14,6 +14,8 @@ https://github.com/carousel/flight-advisor
 From command line run:
 
     mvn spring-boot:run
+    
+Or configure IDE application runner
 
 ## Additional explanation
 Application is using H2 in-memory database
@@ -35,6 +37,11 @@ Couple of simple unit tests are added (JUnit5)
 Swagger documentation can be viewed on:
 http://localhost/swagger-ui.html
 Other than that, code is well documented and pretty self explanatory.
+
+Some of the external libraries were used, for more stability and security:
+
+    Google Guava
+    Apache Commons
 
 Logging storage is present (logs directory)
 

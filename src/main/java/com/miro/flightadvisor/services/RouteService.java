@@ -63,6 +63,7 @@ public class RouteService {
     /**
      * This method is used to assemble and build final "CheapestFlight" object
      * it result is present, final object is returned to client
+     * Google Guava library is used to generate all possible route combinations (cartesian product)
      *
      * @param sources
      * @param destinations

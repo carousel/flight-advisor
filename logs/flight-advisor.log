@@ -43,3 +43,51 @@
 2020-05-25 11:48:52.467  INFO 13192 --- [SpringContextShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
 2020-05-25 11:48:52.473  INFO 13192 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2020-05-25 11:48:52.475  INFO 13192 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2020-05-25 16:58:30.707  INFO 6197 --- [main] c.m.f.FlightAdvisorServiceApplication    : Starting FlightAdvisorServiceApplication on ubuntu with PID 6197 (/home/miro/IdeaProjects/flight-advisor/target/classes started by miro in /home/miro/IdeaProjects/flight-advisor)
+2020-05-25 16:58:30.709 DEBUG 6197 --- [main] c.m.f.FlightAdvisorServiceApplication    : Running with Spring Boot v2.3.0.RELEASE, Spring v5.2.6.RELEASE
+2020-05-25 16:58:30.710  INFO 6197 --- [main] c.m.f.FlightAdvisorServiceApplication    : No active profile set, falling back to default profiles: default
+2020-05-25 16:58:31.715  INFO 6197 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFERRED mode.
+2020-05-25 16:58:31.776  INFO 6197 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53ms. Found 6 JPA repository interfaces.
+2020-05-25 16:58:32.038  INFO 6197 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@382c90c2' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-25 16:58:32.044  INFO 6197 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-05-25 16:58:32.266  INFO 6197 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2020-05-25 16:58:32.273  INFO 6197 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-05-25 16:58:32.273  INFO 6197 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.35]
+2020-05-25 16:58:32.344  INFO 6197 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-05-25 16:58:32.345  INFO 6197 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1597 ms
+2020-05-25 16:58:32.464  INFO 6197 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-05-25 16:58:32.574  INFO 6197 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2020-05-25 16:58:32.579  INFO 6197 --- [main] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2020-05-25 16:58:32.828  INFO 6197 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2020-05-25 16:58:32.876  INFO 6197 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.15.Final
+2020-05-25 16:58:33.015  INFO 6197 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.0.Final}
+2020-05-25 16:58:33.107  INFO 6197 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2020-05-25 16:58:33.637  INFO 6197 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2020-05-25 16:58:33.642  INFO 6197 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2020-05-25 16:58:33.716  WARN 6197 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2020-05-25 16:58:34.257  INFO 6197 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2020-05-25 16:58:34.356  INFO 6197 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/swagger-resources/**'], []
+2020-05-25 16:58:34.356  INFO 6197 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/swagger-ui.html'], []
+2020-05-25 16:58:34.356  INFO 6197 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/v2/api-docs'], []
+2020-05-25 16:58:34.356  INFO 6197 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: Ant [pattern='/webjars/**'], []
+2020-05-25 16:58:34.383  INFO 6197 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1d5048d1, org.springframework.security.web.context.SecurityContextPersistenceFilter@5b5b8730, org.springframework.security.web.header.HeaderWriterFilter@651cedfb, org.springframework.security.web.authentication.logout.LogoutFilter@c2e33, com.miro.flightadvisor.security.services.JwtTokenFilter@47d9c01, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@321c2a7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2d4a0671, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5358c8fa, org.springframework.security.web.session.SessionManagementFilter@31b650e9, org.springframework.security.web.access.ExceptionTranslationFilter@3aca2579, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@56402642]
+2020-05-25 16:58:34.401  INFO 6197 --- [main] pertySourcedRequestMappingHandlerMapping : Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2020-05-25 16:58:34.416  INFO 6197 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService
+2020-05-25 16:58:34.416  INFO 6197 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'importExecutor'
+2020-05-25 16:58:34.731  INFO 6197 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2020-05-25 16:58:34.732  INFO 6197 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Context refreshed
+2020-05-25 16:58:34.744  INFO 6197 --- [main] d.s.w.p.DocumentationPluginsBootstrapper : Found 1 custom documentation plugin(s)
+2020-05-25 16:58:34.780  INFO 6197 --- [main] s.d.s.w.s.ApiListingReferenceScanner     : Scanning for api listing references
+2020-05-25 16:58:35.058  INFO 6197 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: handleUsingGET_1
+2020-05-25 16:58:35.059  INFO 6197 --- [main] .d.s.w.r.o.CachingOperationNameGenerator : Generating unique operation named: handleUsingGET_2
+2020-05-25 16:58:35.078  INFO 6197 --- [main] DeferredRepositoryInitializationListener : Triggering deferred initialization of Spring Data repositories…
+2020-05-25 16:58:35.289  INFO 6197 --- [main] DeferredRepositoryInitializationListener : Spring Data repositories initialized!
+2020-05-25 16:58:35.299  INFO 6197 --- [main] c.m.f.FlightAdvisorServiceApplication    : Started FlightAdvisorServiceApplication in 4.917 seconds (JVM running for 5.558)
+2020-05-25 16:58:35.671  INFO 6197 --- [RMI TCP Connection(1)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-05-25 16:58:35.672  INFO 6197 --- [RMI TCP Connection(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-05-25 16:58:35.682  INFO 6197 --- [RMI TCP Connection(1)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 10 ms
+2020-05-25 17:01:06.983  INFO 6197 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'importExecutor'
+2020-05-25 17:01:06.986  INFO 6197 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-05-25 17:01:06.986  INFO 6197 --- [SpringContextShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2020-05-25 17:01:06.993  INFO 6197 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-05-25 17:01:06.995  INFO 6197 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
