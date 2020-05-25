@@ -25,13 +25,16 @@ Initial admin user will be seeded and roles applied on startup
 Couple of cities with comments will be also seeded
 
 Application is using JWT token for signin, so general user needs to signup first, in order to use it
-Postman collection is attached, for more convenient API usage
+
+Postman collection is attached, for more convenient API usage:
+    
+    docs/Flight Advisor.postman_collection.json 
 
 Couple of simple unit tests are added (JUnit5)
 
 Swagger documentation can be viewed on:
 http://localhost/swagger-ui.html
-Othere than that, code is well documented and pretty self explanatory.
+Other than that, code is well documented and pretty self explanatory.
 
 Logging storage is present (logs directory)
 
