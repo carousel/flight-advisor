@@ -41,6 +41,8 @@ Swagger documentation can be viewed on:
 http://localhost/swagger-ui.html
 Other than that, code is well documented and pretty self explanatory.
 
+HATEOAS and restful JPA repositories are not included, due to simplicity of domain model and time slot required. 
+
 Some of the external libraries were used, for more stability and security:
 
     Google Guava
