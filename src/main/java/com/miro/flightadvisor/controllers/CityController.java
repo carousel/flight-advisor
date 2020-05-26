@@ -28,6 +28,7 @@ import java.util.Optional;
 
 @Api(description = "Api for managing cities")
 @RestController
+@RequestMapping("/cities")
 public class CityController {
 
     private final CityService cityService;
@@ -41,8 +42,8 @@ public class CityController {
     }
 
 
-    @GetMapping("/cities")
-    @ApiOperation(value = "import airports or routes")
+    @GetMapping("")
+    @ApiOperation(value = "return city with comments")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad request"), @ApiResponse(code = 500, message = "Server error")})
     public Optional<?> cities(@RequestParam(value = "cq") Optional<Integer> cq) {
         if (cq.isPresent()) {
@@ -52,7 +53,7 @@ public class CityController {
         }
     }
 
-    @GetMapping("/cities/{cityName}")
+    @GetMapping("{cityName}")
     @ApiOperation(value = "fetch city by city name")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad request"), @ApiResponse(code = 500, message = "Server error")})
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -68,7 +69,7 @@ public class CityController {
     }
 
 
-    @GetMapping("/comments")
+    @GetMapping("comments")
     @ApiOperation(value = "fetch all comments")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad request"), @ApiResponse(code = 500, message = "Server error")})
     @PreAuthorize("hasRole('ROLE_USER')")
@@ -76,7 +77,7 @@ public class CityController {
         return cityService.allCommentsForCity();
     }
 
-    @PostMapping("/cities/{cityId}/comments")
+    @PostMapping("{cityId}/comments")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "add new comment for city")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad request"), @ApiResponse(code = 500, message = "Server error")})
@@ -88,7 +89,7 @@ public class CityController {
         return ResponseEntity.ok("Comment created");
     }
 
-    @DeleteMapping("/cities/{cityId}/comments/{commentId}")
+    @DeleteMapping("{cityId}/comments/{commentId}")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "delete comment for city")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad request"), @ApiResponse(code = 500, message = "Server error")})
@@ -99,7 +100,7 @@ public class CityController {
         return ResponseEntity.ok("Comment deleted");
     }
 
-    @PutMapping("/cities/{cityId}/comments/{commentId}")
+    @PutMapping("{cityId}/comments/{commentId}")
     @ResponseStatus(HttpStatus.CREATED)
     @ApiOperation(value = "update comment for city")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad request"), @ApiResponse(code = 500, message = "Server error")})

@@ -14,6 +14,9 @@ git@github.com:carousel/flight-advisor.git
 Or from:
 https://github.com/carousel/flight-advisor
 
+***Important:***
+    ***change values in application.properties file to match local environment***
+
 Run from command line run:
 
     mvn spring-boot:run
