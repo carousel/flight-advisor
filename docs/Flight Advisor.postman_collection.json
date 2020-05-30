@@ -1,0 +1,501 @@
+{
+	"info": {
+		"_postman_id": "87dad12f-eb9e-4736-8e41-445c9ae8715e",
+		"name": "Flight Advisor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Signin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"username\": \"carousel\",\n\t\"password\": \"bumerang\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base URL}}/users/signin",
+					"host": [
+						"{{Base URL}}"
+					],
+					"path": [
+						"users",
+						"signin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Cities",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cities?cq=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities"
+					],
+					"query": [
+						{
+							"key": "cq",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add city",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE1OTA1MDM1ODEsImV4cCI6MTU5MDUwNDE4MX0.b5cCT9FXFYbIFvKrh-CASJQkZzueV3IO7e4GPAkQWUs",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"name\": \"Berlin\",\n\t\"country\": \"Netherlands\",\n\t\"description\": \"Some description for Berlin\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/cities",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Import routes",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE1OTA1MDYyNDMsImV4cCI6MTU5MDUwNjg0M30.PpiVNrFkE59CuIOr3E1O6xjufu4Vtze9iHcIA2_HHOM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "",
+						"type": "text",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/miro/IdeaProjects/legacy/flight-advisor/docs/routes.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/admin/import",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"import"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Airports",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE1OTA1MDU4NzMsImV4cCI6MTU5MDUwNjQ3M30.DIHEI_fZrXQ0Ad932Rk7RFoSHf7fxFL9NLvYCim71d0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "",
+							"type": "file",
+							"src": "/home/miro/IdeaProjects/legacy/flight-advisor/docs/airports.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/airports",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"airports"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n    \"username\":\"carousel\",\n    \"firstName\":\"Miroslav\",\n    \"lastName\":\"Trninic\",\n    \"password\":\"bumerang\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{Base URL}}/users/signup",
+					"host": [
+						"{{Base URL}}"
+					],
+					"path": [
+						"users",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Comments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cities/comments",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create comment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJvdXNlbCIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sImlhdCI6MTU5MDQ0MjAwNywiZXhwIjoxNTkwNDQyNjA3fQ.ybvdNlup4SdXx3Tbk9l2HemVFHuVMjqPPe8UA7ywsgI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n  \"body\": \"and one more comment update...\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/cities/1/comments",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities",
+						"1",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete comment",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cities/1/comments/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities",
+						"1",
+						"comments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update comments",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJvdXNlbCIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sImlhdCI6MTU5MDQ0MjAwNywiZXhwIjoxNTkwNDQyNjA3fQ.ybvdNlup4SdXx3Tbk9l2HemVFHuVMjqPPe8UA7ywsgI",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n    \"body\":\"update comment with map\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/cities/1/comments/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities",
+						"1",
+						"comments",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "City with comment (cities/1/...)",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{Token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/cities/Amsterdam?cq=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities",
+						"Amsterdam"
+					],
+					"query": [
+						{
+							"key": "cq",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All routes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/routes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Import airports",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX0FETUlOIn1dLCJpYXQiOjE1OTA1MDYyNDMsImV4cCI6MTU5MDUwNjg0M30.PpiVNrFkE59CuIOr3E1O6xjufu4Vtze9iHcIA2_HHOM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/home/miro/IdeaProjects/legacy/flight-advisor/docs/airports.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/admin/import",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"import"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find cheapest route",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJjYXJvdXNlbCIsInJvbGVzIjpbeyJhdXRob3JpdHkiOiJST0xFX1VTRVIifV0sImlhdCI6MTU5MDUwNjQwNCwiZXhwIjoxNTkwNTA3MDA0fQ.bFthut8ow9uQGXOtz4FCNSlAYHGOBWmcPPJV82-081o",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/routes/find-cheapest/Amsterdam/Berlin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"routes",
+						"find-cheapest",
+						"Amsterdam",
+						"Berlin"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
