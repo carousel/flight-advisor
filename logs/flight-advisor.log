@@ -1010,3 +1010,8 @@ java.util.NoSuchElementException: No value present
 2020-05-30 21:52:07.612  INFO 38982 --- [http-nio-8080-exec-6] c.m.f.security.services.JwtTokenFilter   : Process request to check for a JSON Web Token 
 2020-05-30 21:52:21.997  INFO 38982 --- [http-nio-8080-exec-9] c.m.f.security.services.JwtTokenFilter   : Process request to check for a JSON Web Token 
 2020-05-30 21:52:25.868  INFO 38982 --- [http-nio-8080-exec-5] c.m.f.security.services.JwtTokenFilter   : Process request to check for a JSON Web Token 
+2020-05-30 21:57:05.907  INFO 38982 --- [SpringContextShutdownHook] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'importExecutor'
+2020-05-30 21:57:05.909  INFO 38982 --- [SpringContextShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2020-05-30 21:57:05.910  INFO 38982 --- [SpringContextShutdownHook] .SchemaDropperImpl$DelayedDropActionImpl : HHH000477: Starting delayed evictData of schema as part of SessionFactory shut-down'
+2020-05-30 21:57:05.916  INFO 38982 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2020-05-30 21:57:05.920  INFO 38982 --- [SpringContextShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
