@@ -1,12 +1,12 @@
 package com.miro.flightadvisor.security.beans;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 public class LoginBean {
-    @NotNull
+    @NotBlank(message = "Username is required")
     private String username;
-
-    @NotNull
+    @NotBlank(message = "Password is required")
     private String password;
 
     private String firstName;
@@ -21,6 +21,7 @@ public class LoginBean {
 
     /**
      * Partial constructor
+     *
      * @param username
      * @param password
      */
@@ -28,8 +29,10 @@ public class LoginBean {
         this.username = username;
         this.password = password;
     }
+
     /**
      * Full constructor
+     *
      * @param username
      * @param password
      */

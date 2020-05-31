@@ -22,26 +22,24 @@ class CityControllerTest {
 
     @Autowired
     TestRestTemplate testRestTemplate;
-
+    
     @Test
     void comments() {
-        SignupBean signupBean = new SignupBean();
-        signupBean.setFirstName("Miroslav");
-        signupBean.setLastName("Trninic");
-        signupBean.setPassword("bumerang");
-        signupBean.setUsername("carosuel");
-
-        HttpEntity<SignupBean> signup = new HttpEntity<>(signupBean);
-
         //first signup
+        SignupBean signupBean = new SignupBean();
+        signupBean.setFirstName("Jimi");
+        signupBean.setLastName("Hendrix");
+        signupBean.setPassword("fpwe8fpoiwdfl");
+        String password = signupBean.getPassword();
+        signupBean.setUsername("guitargod");
+        String username = signupBean.getUsername();
+        HttpEntity<SignupBean> signup = new HttpEntity<>(signupBean);
         User user = testRestTemplate.postForObject("/users/signup", signup, User.class);
 
-        LoginBean loginBean = new LoginBean("carousel", "bumerang");
-
-        HttpEntity<SignupBean> signin = new HttpEntity<>(signupBean);
-
-        //signin with credentials
+        //then signin with credentials
         //get jwt bearer authorization in response
+        LoginBean loginBean = new LoginBean(username, password);
+        HttpEntity<LoginBean> signin = new HttpEntity<>(loginBean);
         String token = testRestTemplate.postForObject("/users/signin", signin, String.class);
 
         //send request for resource with jwt token
@@ -51,8 +49,8 @@ class CityControllerTest {
         HttpEntity headers = new HttpEntity<>(httpHeaders);
         String url = "/cities/Amsterdam";
         ResponseEntity<City> city = testRestTemplate.exchange(url, HttpMethod.GET, headers, City.class, 1);
-
         String country = city.getBody().getCountry();
+
         //test
         assertEquals(country, "Netherlands");
 
