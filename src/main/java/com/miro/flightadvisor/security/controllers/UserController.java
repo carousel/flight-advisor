@@ -26,12 +26,12 @@ public class UserController {
     @PostMapping("/signin")
     public String login(@RequestBody @Valid LoginBean loginBean) {
         return userService.signin(loginBean.getUsername(), loginBean.getPassword()).orElseThrow(() ->
-                new HttpServerErrorException(HttpStatus.FORBIDDEN, "LoginBean Failed"));
+                new HttpServerErrorException(HttpStatus.FORBIDDEN, "login failed, please try again"));
     }
 
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
-    public User signup(@RequestBody @Valid SignupBean signupBean) {
+    public User signup(@Valid @RequestBody SignupBean signupBean) {
         return userService.signup(signupBean.getUsername(), signupBean.getPassword(), signupBean.getFirstName(),
                 signupBean.getLastName()).orElseThrow(() -> new HttpServerErrorException(HttpStatus.BAD_REQUEST, "User already exists"));
     }

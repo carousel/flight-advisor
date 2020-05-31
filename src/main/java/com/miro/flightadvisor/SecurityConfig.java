@@ -14,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+
+import java.nio.file.AccessDeniedException;
 
 @Configuration
 @EnableWebSecurity
@@ -42,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/v2/api-docs",
             "/webjars/**"
     };
+
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(AUTH_WHITELIST);

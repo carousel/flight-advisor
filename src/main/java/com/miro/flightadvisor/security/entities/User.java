@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 
 import java.security.SecureRandom;
@@ -27,6 +29,7 @@ public class User {
     @Column(name = "id")
     private Long id;
     @Column(name = "username")
+    @NotBlank
     private String username;
     @Column(name = "password")
     @JsonIgnore
@@ -36,6 +39,7 @@ public class User {
     @Column(name = "last_name")
     private String lastName;
     @Column(name = "salt")
+    @JsonIgnore
     private byte[] salt;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns

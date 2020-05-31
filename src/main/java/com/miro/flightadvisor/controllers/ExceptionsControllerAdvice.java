@@ -10,12 +10,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.nio.file.AccessDeniedException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +33,7 @@ public class ExceptionsControllerAdvice extends ResponseEntityExceptionHandler {
             errors.add(error.getObjectName() + ": " + error.getDefaultMessage());
         }
 
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(), errors);
         return handleExceptionInternal(ex, apiError, headers, apiError.getStatus(), request);
     }
 
@@ -52,7 +54,7 @@ public class ExceptionsControllerAdvice extends ResponseEntityExceptionHandler {
             errors.add(violation.getMessage());
         }
 
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errors);
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST, HttpStatus.BAD_REQUEST.value(), ex.getLocalizedMessage(), errors);
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
 
     }
@@ -69,10 +71,22 @@ public class ExceptionsControllerAdvice extends ResponseEntityExceptionHandler {
                 apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-//    @ExceptionHandler({Exception.class})
-//    public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
-//        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), "error occurred");
-//        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
-//    }
+    @ExceptionHandler({HttpServerErrorException.class})
+    public ResponseEntity<Object> handleAll(HttpServerErrorException ex, WebRequest request) {
+        ApiError apiError = new ApiError(HttpStatus.FORBIDDEN, HttpStatus.FORBIDDEN.value(), ex.getMessage(), "error occured");
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
+        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getLocalizedMessage(), "error occurred");
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
+
+    @ExceptionHandler({AccessDeniedException.class})
+    public ResponseEntity<Object> handleAccessDenied(AccessDeniedException ex, WebRequest request) {
+        ApiError apiError = new ApiError(HttpStatus.FORBIDDEN, HttpStatus.FORBIDDEN.value(), ex.getLocalizedMessage(), "error occurred");
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), apiError.getStatus());
+    }
 
 }

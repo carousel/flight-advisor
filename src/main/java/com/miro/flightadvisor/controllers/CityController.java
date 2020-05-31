@@ -18,9 +18,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Access;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
@@ -74,7 +76,7 @@ public class CityController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad request"), @ApiResponse(code = 500, message = "Server error")})
     @PreAuthorize("hasRole('ROLE_USER')")
     public Optional<List<Comment>> comments() {
-        return cityService.allCommentsForCity();
+            return cityService.allCommentsForCity();
     }
 
     @PostMapping("{cityId}/comments")
