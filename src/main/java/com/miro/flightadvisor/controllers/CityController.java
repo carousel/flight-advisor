@@ -16,11 +16,13 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.SpringVersion;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.persistence.Access;
 import javax.validation.Valid;
@@ -33,6 +35,8 @@ import java.util.Optional;
 @RequestMapping("/cities")
 public class CityController {
 
+
+
     private final CityService cityService;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CityController.class);
@@ -42,6 +46,8 @@ public class CityController {
     public CityController(CityService cityService) {
         this.cityService = cityService;
     }
+
+
 
 
     @GetMapping("")
