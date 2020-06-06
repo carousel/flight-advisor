@@ -22,10 +22,6 @@ public class AirportService {
         this.airportRepository = airportRepository;
     }
 
-    public Optional<List<Airport>> allAirports() {
-        return Optional.of(airportRepository.findAll());
-    }
-
     public void saveAirportIfCityIsPresent(AirportBean airportBean) {
         Optional<Airport> airport = airportRepository.findByName(airportBean.getName());
         if (airport.isPresent()) {

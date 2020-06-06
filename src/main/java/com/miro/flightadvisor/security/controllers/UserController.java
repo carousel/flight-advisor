@@ -24,7 +24,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/signin")
-    public String login(@RequestBody @Valid LoginBean loginBean) {
+    public String signin(@RequestBody @Valid LoginBean loginBean) {
         return userService.signin(loginBean.getUsername(), loginBean.getPassword()).orElseThrow(() ->
                 new HttpServerErrorException(HttpStatus.FORBIDDEN, "login failed, please try again"));
     }
@@ -34,12 +34,6 @@ public class UserController {
     public User signup(@Valid @RequestBody SignupBean signupBean) {
         return userService.signup(signupBean.getUsername(), signupBean.getPassword(), signupBean.getFirstName(),
                 signupBean.getLastName()).orElseThrow(() -> new HttpServerErrorException(HttpStatus.BAD_REQUEST, "User already exists"));
-    }
-
-    @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public List<User> getAllUsers() {
-        return userService.getAll();
     }
 
 }

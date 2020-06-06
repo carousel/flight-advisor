@@ -47,15 +47,6 @@ public class CityService {
         }
     }
 
-    public Optional<List<City>> allCities() {
-        List<City> l = new ArrayList<>();
-        return Optional.of(this.cityRepository.findAll());
-    }
-
-    public Optional<City> city(String cityName) {
-        return Optional.of(this.cityRepository.findByName(cityName).get());
-    }
-
     public Optional<CityWithCommentsBean> cityWithLimitedComments(String cityName, Integer commentsLimit) {
 
         CityWithCommentsBean cityWithCommentsBean = new CityWithCommentsBean();
@@ -87,11 +78,6 @@ public class CityService {
             citiesWithCommentsBeans.add(cityWithCommentsBean);
         });
         return Optional.of(citiesWithCommentsBeans);
-    }
-
-    public Optional<List<Comment>> allCommentsForCity() {
-        Optional<City> city = cityRepository.findById(1);
-        return Optional.of(city.get().getComments());
     }
 
     public void addCommentForCity(CommentBean commentBean) {

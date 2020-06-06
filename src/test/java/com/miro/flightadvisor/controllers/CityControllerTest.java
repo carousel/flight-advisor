@@ -14,15 +14,21 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class CityControllerTest {
 
     @Autowired
     TestRestTemplate testRestTemplate;
-    
+
     @Test
     void comments() {
         //first signup
@@ -39,8 +45,9 @@ class CityControllerTest {
         //then signin with credentials
         //get jwt bearer authorization in response
         LoginBean loginBean = new LoginBean(username, password);
-        HttpEntity<LoginBean> signin = new HttpEntity<>(loginBean);
-        String token = testRestTemplate.postForObject("/users/signin", signin, String.class);
+        HttpEntity<LoginBean> login = new HttpEntity<>(loginBean);
+        String token = testRestTemplate.postForObject("/users/signin", login, String.class);
+
 
         //send request for resource with jwt token
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -50,8 +57,7 @@ class CityControllerTest {
         String url = "/cities/Amsterdam";
         ResponseEntity<City> city = testRestTemplate.exchange(url, HttpMethod.GET, headers, City.class, 1);
         String country = city.getBody().getCountry();
-
-        //test
+//        test
         assertEquals(country, "Netherlands");
 
     }

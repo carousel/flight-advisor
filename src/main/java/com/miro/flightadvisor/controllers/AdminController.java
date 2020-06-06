@@ -2,7 +2,6 @@ package com.miro.flightadvisor.controllers;
 
 import com.miro.flightadvisor.beans.CityBean;
 import com.miro.flightadvisor.entities.Airport;
-import com.miro.flightadvisor.entities.City;
 import com.miro.flightadvisor.repositories.AirportRepository;
 import com.miro.flightadvisor.services.AirportService;
 import com.miro.flightadvisor.services.CityService;
@@ -12,22 +11,15 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.aspectj.util.FileUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,11 +39,13 @@ public class AdminController {
 
 
     private final CityService cityService;
+    private final AirportRepository airportRepository;
     private final AirportService airportService;
     private final DataImportService dataImportService;
 
-    public AdminController(CityService cityService, DataImportService dataImportService, AirportService airportService) {
+    public AdminController(CityService cityService, AirportRepository airportRepository, DataImportService dataImportService, AirportService airportService) {
         this.cityService = cityService;
+        this.airportRepository = airportRepository;
         this.dataImportService = dataImportService;
         this.airportService = airportService;
     }
@@ -71,7 +65,7 @@ public class AdminController {
     @ApiResponses(value = {@ApiResponse(code = 200, message = "OK"), @ApiResponse(code = 400, message = "Bad request"), @ApiResponse(code = 500, message = "Server error")})
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public Optional<List<Airport>> getAirports() {
-        return airportService.allAirports();
+        return Optional.of(airportRepository.findAll());
     }
 
     @PostMapping(value = "/admin/import")
